@@ -19,13 +19,12 @@ router.get('/getAllByUserId/:userId', async (req: Request, res: Response) => {
 
 router.get('/getAll', async (req: Request, res: Response) => {
   try {
-    res.send("wolcome ito getALL bro");
-    // const tasks = await TaskModel.find();
-    // if (tasks.length > 0) {
-    //   res.status(200).json(tasks);
-    // } else {
-    //   res.status(404).json({ message: 'No tasks found!' });
-    // }
+    const tasks = await TaskModel.find();
+    if (tasks.length > 0) {
+      res.status(200).json(tasks);
+    } else {
+      res.status(404).json({ message: 'No tasks found!' });
+    }
   } catch (err: any) {
     res.status(500).json({ message: err.message });
   }
