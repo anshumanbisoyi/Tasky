@@ -16,6 +16,10 @@ mongoose
 
 app.use("/tasks", taskRoute);
 
+app.get("/", (req, res) => {
+    res.send("server is running good.")
+})
+
 app.listen(port, () => {
     console.log(`Server listening on ${port}`);
 })
