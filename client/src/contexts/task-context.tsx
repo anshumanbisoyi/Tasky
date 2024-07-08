@@ -35,7 +35,9 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const fetchAllTasks = async () => {
-    const response = await fetch('http://localhost:3001/tasks/getAll');
+    const response = await fetch(
+      'https://taskybackend-sigma.vercel.app/tasks/getAll'
+    );
     try {
       if (response.ok) {
         const tasks = await response.json();
@@ -52,7 +54,7 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
   const fetchTasks = async () => {
     if (!user) return;
     const response = await fetch(
-      `http://localhost:3001/tasks/getAllByUserId/${user.id}`
+      `https://taskybackend-sigma.vercel.app/tasks/getAllByUserId/${user.id}`
     );
     try {
       if (response.ok) {
@@ -69,13 +71,16 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
 
   const addTask = async (task: Task) => {
     try {
-      const response = await fetch('http://localhost:3001/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(task),
-      });
+      const response = await fetch(
+        'https://taskybackend-sigma.vercel.app/tasks',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(task),
+        }
+      );
       if (response.ok) {
         const newTask = await response.json();
         setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -89,13 +94,16 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
 
   const editTask = async (taskId: string, updatedTask: Task) => {
     try {
-      const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedTask),
-      });
+      const response = await fetch(
+        `https://taskybackend-sigma.vercel.app/tasks/${taskId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedTask),
+        }
+      );
       if (response.ok) {
         const updatedTaskFromServer = await response.json();
         if (updatedTaskFromServer.status === 'completed') {
@@ -128,9 +136,12 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
 
   const deleteTask = async (taskId: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://taskybackend-sigma.vercel.app/tasks/${taskId}`,
+        {
+          method: 'DELETE',
+        }
+      );
       if (response.ok) {
         await response.json(); 
         setTasks((prevTasks) =>
