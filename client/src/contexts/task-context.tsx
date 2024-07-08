@@ -145,10 +145,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
       if (response.ok) {
         await response.json(); 
         setTasks((prevTasks) =>
-          prevTasks.filter((task) => task._id !== taskId)
+          prevTasks.filter((task) => task?._id?.toString() !== taskId)
         );
         setCompletedTasks((prevCompletedTasks) =>
-          prevCompletedTasks.filter((task) => task._id !== taskId)
+          prevCompletedTasks.filter((task) => task?._id?.toString() !== taskId)
         );
       } else {
         throw new Error('Failed to delete task');
